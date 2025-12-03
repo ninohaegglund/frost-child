@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "styles": {
+    "blocks": {
+      "core/navigation": {
+        "spacing": {
+          "blockGap": "8px"
+        }
+      }
+    }
+  }
+}
+    
