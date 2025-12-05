@@ -27,7 +27,7 @@
     bottom: -2px; 
     width: 0%;
     height: 2px;
-    background: currentColor; 
+    background: #9b880c; 
     transition: width 200ms ease;
 }
 
