@@ -40,3 +40,35 @@
     transition: color 200ms ease;
 }
 
+/* Custom Header Styles */
+.fc-header {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+.fc-header .wp-block-columns {
+    align-items: center;
+}
+
+.fc-header__middle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fc-header__middle .wp-block-navigation {
+    justify-content: center;
+}
+
+.fc-header .wp-block-navigation a,
+.fc-header .wp-block-navigation__responsive-container-content a {
+    color: #fff !important;
+}
+
+.fc-header .wp-site-logo {
+    max-width: 120px;
+}
+
+.fc-header .wp-block-button__link {
+    padding: 0.5rem 1.5rem;
+}
