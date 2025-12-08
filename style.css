@@ -3,20 +3,16 @@
  Template: frost
 */
 
-/* Remove legacy mobile nav override */
-@media (max-width: 768px) {
-  /* .wp-block-navigation { display: none; } */
-  .my-mobile-menu-button { display: none; }
-}
-
-/* Animated underline */
+/* Base: Navigation link styling */
 .wp-block-navigation a {
   position: relative;
-  text-decoration:none;
+  text-decoration: none;
   transition: color 200ms ease;
-   font-weight: 300;
-
+  font-weight: 300; /* lighter look for menu */
+  outline: none;
 }
+
+/* Animated underline (hover/focus) */
 .wp-block-navigation a::after {
   content: "";
   position: absolute;
@@ -28,13 +24,25 @@
   transition: width 200ms ease;
 }
 .wp-block-navigation a:hover::after,
-.wp-block-navigation a:focus-visible::after { width: 100%; }
+.wp-block-navigation a:focus-visible::after {
+  width: 100%;
+}
 
+/* Accessibility: Respect reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-navigation a,
+  .wp-block-navigation a::after {
+    transition: none;
+  }
+}
+
+/* Header layout */
 .fc-header .wp-block-columns { align-items: center; }
 .fc-header .wp-block-column:nth-child(1) { display: flex; align-items: center; justify-content: flex-start; }
 .fc-header .fc-header__middle { display: flex; align-items: center; justify-content: center; }
 .fc-header .wp-block-column:nth-child(3) { display: flex; align-items: center; justify-content: flex-end; }
 
+/* Navigation container spacing */
 .fc-header .wp-block-navigation .wp-block-navigation__container {
   display: flex;
   align-items: center;
@@ -42,8 +50,26 @@
   gap: var(--wp--preset--spacing--70, 16px);
 }
 
+/* Link color on black header */
 .fc-header .wp-block-navigation a { color: #fff; }
 
+/* Highlight current item for orientation */
+.fc-header .wp-block-navigation .current-menu-item > a,
+.fc-header .wp-block-navigation .wp-block-navigation-item--active > a {
+  color: #ffd768; /* subtle highlight */
+}
+.fc-header .wp-block-navigation .current-menu-item > a::after,
+.fc-header .wp-block-navigation .wp-block-navigation-item--active > a::after {
+  width: 100%;
+  background: #ffd768;
+}
+
+/* Submenu indicators inherit color */
+.fc-header .wp-block-navigation .wp-block-navigation__submenu-icon svg {
+  fill: currentColor;
+}
+
+/* Right column Account button */
 .fc-header .wp-block-button.fc-account .wp-block-button__link {
   display: inline-block;
   padding: 8px 14px;
@@ -51,50 +77,66 @@
   background: #9b880c;
   color: #ffffff;
   font-weight: 400;
+  line-height: 1.25;
+  box-shadow: 0 0 0 0 transparent;
 }
 .fc-header .wp-block-button.fc-account .wp-block-button__link:hover,
-.fc-header .wp-block-button.fc-account .wp-block-button__link:focus { opacity: 0.9; }
-
-@media (max-width: 782px) {
-  .fc-header .wp-block-button.fc-account { display: none; }
+.fc-header .wp-block-button.fc-account .wp-block-button__link:focus {
+  opacity: 0.9;
 }
 
-.fc-header .wp-block-navigation__responsive-container-open,
-.fc-header .wp-block-navigation__responsive-container-close { color: #fff; }
-.fc-header .wp-block-navigation__responsive-container { background: #000; }
+/* Focus visible for keyboard users */
+.fc-header .wp-block-navigation a:focus-visible,
+.fc-header .wp-block-button.fc-account .wp-block-button__link:focus-visible {
+  outline: 2px solid #ffd768;
+  outline-offset: 2px;
+}
 
-
+/* Site Logo sizing + alignment */
+.fc-header .wp-block-site-logo { line-height: 0; }
 .fc-header .wp-block-site-logo img {
-  width: 76px !important;
+  width: 76px !important; /* your current size */
   height: auto !important;
   max-width: none !important;
+  display: block; /* avoid inline baseline quirks */
 }
-.fc-header .wp-block-site-logo { line-height: 0; }
 
+/* Overlay menu panel (mobile) */
+.fc-header .wp-block-navigation__responsive-container-open,
+.fc-header .wp-block-navigation__responsive-container-close { color: #fff; }
+.fc-header .wp-block-navigation__responsive-container {
+  background: #000;
+  padding: 16px; /* improve tap targets around items */
+}
 
+/* Reduce accidental taps: increase tap target for overlay items */
+.fc-header .wp-block-navigation__responsive-container .wp-block-navigation a {
+  padding: 8px 4px;
+}
+
+/* Header padding */
 @media (max-width: 782px) {
   .fc-header { padding: 10px 16px; }
 }
 
+/* Mobile: place hamburger at right, hide logo & account button, tighten gaps */
 @media (max-width: 782px) {
+  /* Move hamburger to the right */
+  .fc-header .fc-header__middle { justify-content: flex-end; }
+  .fc-header .wp-block-navigation__responsive-container-open { margin-left: auto; }
+  .fc-header .wp-block-navigation__responsive-container { justify-content: center; }
 
-  .fc-header .fc-header__middle {
-    justify-content: flex-end;
-  }
-
-  .fc-header .wp-block-navigation__responsive-container-open {
-    margin-left: auto; 
-  }
-
-  .fc-header .wp-block-navigation__responsive-container {
-    justify-content: center; 
-  }
-  
-
-  .fc-header .wp-block-site-logo { display: none; } 
+  /* Hide logo and account button for cleaner mobile header */
+  .fc-header .wp-block-site-logo { display: none; }
   .fc-header .wp-block-button.fc-account { display: none; }
 
-  /* Slightly tighter nav gap on mobile
-   */
+  /* Slightly tighter nav gap on mobile */
   .fc-header .wp-block-navigation .wp-block-navigation__container { gap: 12px; }
+}
+
+/* Optional: Dark mode tune (if site uses color schemes) */
+@media (prefers-color-scheme: dark) {
+  .fc-header .wp-block-navigation a::after { background: #e0c14d; }
+  .fc-header .wp-block-navigation .current-menu-item > a,
+  .fc-header .wp-block-navigation .wp-block-navigation-item--active > a { color: #e0c14d; }
 }
