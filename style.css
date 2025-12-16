@@ -118,45 +118,40 @@
 .fc-header .fc-header__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* <-- restore spacing */
-  width: 100%;                   /* <-- ensure it has room to space */
+  justify-content: space-between; 
+  width: 100%;                   
   gap: 16px;
 }
 
-/* Let nav take remaining space so it can center on desktop */
 .fc-header .fc-header__nav {
   flex: 1 1 auto;
   display: flex;
   justify-content: center;
 }
 
-/* Make the hamburger reliably centered inside the bar */
 .fc-header .wp-block-navigation__responsive-container-open,
 .fc-header .wp-block-navigation__responsive-container-close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
-  transform: none; /* important if you had an old translateY */
+  transform: none; 
 }
 
 @media (max-width: 782px) {
-  /* Make the whole header act like a centered bar */
   .fc-header {
     display: flex;
     align-items: center;
 
-    /* Override the inline padding coming from header.html */
     padding-top: 6px !important;
     padding-bottom: 6px !important;
     padding-left: 16px !important;
     padding-right: 16px !important;
 
-    min-height: 72px; /* adjust to taste */
+    min-height: 72px; /
   }
 
 
-  /* Force the bar to have a clear vertical center */
   .fc-header {
     padding-top: 6px !important;
     padding-bottom: 6px !important;
@@ -172,12 +167,10 @@
     justify-content: flex-end;
   }
 
-  /* Hide account button on mobile */
   .fc-header .fc-header__actions {
     display: none;
   }
 
-  /* Remove default block margins inside header */
   .fc-header .wp-block-site-title,
   .fc-header .wp-block-navigation {
     margin: 0;
@@ -208,15 +201,33 @@
     outline-offset: 2px;
   }
 
-  /* Make the X icon inherit currentColor cleanly */
   .fc-header .wp-block-navigation__responsive-container-close svg {
     fill: currentColor;
     width: 24px;
     height: 24px;
   }
+
+  .fc-header .wp-block-navigation__responsive-container .fc-nav-account > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 12px;
+    padding: 10px 14px;
+
+   
+    color: black;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .fc-header .wp-block-navigation__responsive-container .fc-nav-account > a:hover,
+  .fc-header .wp-block-navigation__responsive-container .fc-nav-account > a:focus-visible {
+    opacity: 0.92;
+  }
 }
 
-/* Don't force these to display globally (desktop) */
 .fc-header .wp-block-navigation__responsive-container-open,
 .fc-header .wp-block-navigation__responsive-container-close {
   align-items: center;
@@ -225,7 +236,6 @@
   transform: none;
 }
 
-/* Mobile: show the hamburger + close button */
 @media (max-width: 782px) {
   .fc-header .wp-block-navigation__responsive-container-open,
   .fc-header .wp-block-navigation__responsive-container-close {
@@ -233,9 +243,20 @@
   }
 }
 
-/* Desktop: ensure hamburger is hidden */
 @media (min-width: 783px) {
   .fc-header .wp-block-navigation__responsive-container-open {
     display: none !important;
+  }
+}
+
+@media (min-width: 783px) {
+  .fc-header .wp-block-navigation .fc-nav-account {
+    display: none !important;
+  }
+}
+
+@media (max-width: 782px) {
+  .fc-header .wp-block-navigation__responsive-container .fc-nav-account {
+    display: block;
   }
 }
