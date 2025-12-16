@@ -114,56 +114,128 @@
   padding: 8px 4px;
 }
 
+/* New header layout (works with the new header.html) */
+.fc-header .fc-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* <-- restore spacing */
+  width: 100%;                   /* <-- ensure it has room to space */
+  gap: 16px;
+}
+
+/* Let nav take remaining space so it can center on desktop */
+.fc-header .fc-header__nav {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Make the hamburger reliably centered inside the bar */
+.fc-header .wp-block-navigation__responsive-container-open,
+.fc-header .wp-block-navigation__responsive-container-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transform: none; /* important if you had an old translateY */
+}
 
 @media (max-width: 782px) {
-
-    .fc-header {
-    padding-top: 6px;
-    padding-bottom: 6px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-
-  /* Keep your existing middle-column behavior */
-  .fc-header .wp-block-columns > .wp-block-column.fc-header__middle {
+  /* Make the whole header act like a centered bar */
+  .fc-header {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    flex: 0 0 auto;
+
+    /* Override the inline padding coming from header.html */
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+
+    min-height: 72px; /* adjust to taste */
   }
 
 
-  /* X button (when menu is open) – keep your styling */
-  .fc-header .wp-block-navigation__responsive-container-close {
+  /* Force the bar to have a clear vertical center */
+  .fc-header {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .fc-header .fc-header__inner {
+    min-height: 72px; /* adjust to taste */
+  }
+
+  .fc-header .fc-header__nav {
+    justify-content: flex-end;
+  }
+
+  /* Hide account button on mobile */
+  .fc-header .fc-header__actions {
+    display: none;
+  }
+
+  /* Remove default block margins inside header */
+  .fc-header .wp-block-site-title,
+  .fc-header .wp-block-navigation {
+    margin: 0;
+  }
+
+    .fc-header .wp-block-navigation__responsive-container-close {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: black;
-    margin-left: 0;
-    position: relative;
-    z-index: 9999;
     width: 40px;
     height: 40px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-   
+    padding: 0;
+    color: #111;
+    background: transparent;        
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 10px;
+    box-shadow: none;                
+    cursor: pointer;
   }
 
-  /* NUDGE ONLY THE HAMBURGER ICON */
-  .fc-header .wp-block-navigation__responsive-container-open {
+  .fc-header .wp-block-navigation__responsive-container-close:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.55);
+  }
+
+  .fc-header .wp-block-navigation__responsive-container-close:focus-visible {
+    outline: 2px solid #ffd768;
+    outline-offset: 2px;
+  }
+
+  /* Make the X icon inherit currentColor cleanly */
+  .fc-header .wp-block-navigation__responsive-container-close svg {
+    fill: currentColor;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Don't force these to display globally (desktop) */
+.fc-header .wp-block-navigation__responsive-container-open,
+.fc-header .wp-block-navigation__responsive-container-close {
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transform: none;
+}
+
+/* Mobile: show the hamburger + close button */
+@media (max-width: 782px) {
+  .fc-header .wp-block-navigation__responsive-container-open,
+  .fc-header .wp-block-navigation__responsive-container-close {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 0;
-
-    /* adjust this number until it looks right */
-    transform: translateY(-50px);
   }
+}
 
-  /* Hide account button in mobile */
-  .fc-header .wp-block-button.fc-account {
-    display: none;
+/* Desktop: ensure hamburger is hidden */
+@media (min-width: 783px) {
+  .fc-header .wp-block-navigation__responsive-container-open {
+    display: none !important;
   }
 }
