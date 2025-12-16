@@ -114,29 +114,56 @@
   padding: 8px 4px;
 }
 
-/* Header padding */
+
 @media (max-width: 782px) {
-  .fc-header { padding: 10px 16px; }
-}
 
-/* Mobile: place hamburger at right, hide logo & account button, tighten gaps */
-@media (max-width: 782px) {
-  /* Move hamburger to the right */
-  .fc-header .fc-header__middle { justify-content: flex-end; }
-  .fc-header .wp-block-navigation__responsive-container-open { margin-left: auto; }
-  .fc-header .wp-block-navigation__responsive-container { justify-content: center; }
+    .fc-header {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 
-  /* Hide logo and account button for cleaner mobile header */
-  .fc-header .wp-block-site-logo { display: none; }
-  .fc-header .wp-block-button.fc-account { display: none; }
 
-  /* Slightly tighter nav gap on mobile */
-  .fc-header .wp-block-navigation .wp-block-navigation__container { gap: 12px; }
-}
+  /* Keep your existing middle-column behavior */
+  .fc-header .wp-block-columns > .wp-block-column.fc-header__middle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 auto;
+  }
 
-/* Optional: Dark mode tune (if site uses color schemes) */
-@media (prefers-color-scheme: dark) {
-  .fc-header .wp-block-navigation a::after { background: #e0c14d; }
-  .fc-header .wp-block-navigation .current-menu-item > a,
-  .fc-header .wp-block-navigation .wp-block-navigation-item--active > a { color: #e0c14d; }
+
+  /* X button (when menu is open) – keep your styling */
+  .fc-header .wp-block-navigation__responsive-container-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    margin-left: 0;
+    position: relative;
+    z-index: 9999;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+   
+  }
+
+  /* NUDGE ONLY THE HAMBURGER ICON */
+  .fc-header .wp-block-navigation__responsive-container-open {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+
+    /* adjust this number until it looks right */
+    transform: translateY(-50px);
+  }
+
+  /* Hide account button in mobile */
+  .fc-header .wp-block-button.fc-account {
+    display: none;
+  }
 }
